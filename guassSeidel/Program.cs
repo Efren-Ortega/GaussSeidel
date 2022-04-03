@@ -19,6 +19,7 @@ namespace guassSeidel
             List<double> Numbers = new List<double>();
             List<double> NumbersDesc = new List<double>();
             List<int> Rows = new List<int>();
+            List<int> RowsOrder = new List<int>();
 
             for (int i = 0; i < MATRIX_ROWS; i++)
             {
@@ -104,7 +105,7 @@ namespace guassSeidel
             for (int i = 0; i < Rows.Count; i++)
             {
                 Console.WriteLine(Rows[i]);
-            }
+            }                        
 
             //This method is to order the numbers found 'em before
             OrderValues(Numbers, NumbersDesc);
@@ -129,6 +130,7 @@ namespace guassSeidel
                 if (Numbers.Count == 1)
                 {
                     NumbersDesc.Add(Numbers[0]);
+                    //RowsOrder.Add(Rows[0]);
                     break;
                 }
 
@@ -143,10 +145,11 @@ namespace guassSeidel
 
                     if (band == Numbers.Count-1)
                     {
-                        NumbersDesc.Add(value);
-                        Numbers.Remove(value);
-
-                        int index = myList.FindIndex(a => a.Contains("Tennis"));
+                        NumbersDesc.Add(value);                        
+                        //int index = Numbers.IndexOf(value);
+                        //RowsOrder.Add(Rows[index]);
+                        //Rows.Remove(Rows[index]);
+                        Numbers.Remove(value);                        
 
                         i = -1;
                         break;
@@ -157,8 +160,10 @@ namespace guassSeidel
             for (int i = 0; i<NumbersDesc.Count; i++)
             {
                 Console.WriteLine("The order of the numbers are: " + NumbersDesc[i]);
+                //Console.WriteLine("The poision of the number is: " + RowsOrder[i]);
             }
 
+            
             return 0;
         }
 
