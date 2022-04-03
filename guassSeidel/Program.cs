@@ -11,11 +11,10 @@ namespace guassSeidel
             const int MATRIX_ROWS = 3;
             const int MATRIX_COLUMNS = 4;
             string variable = "", sign="";
-            int Row1=0, Row2=0, Row3=0;
-            int Col1=0, Col2=0, Col3=0;
 
             double[,] matrix = new double[MATRIX_ROWS, MATRIX_COLUMNS];
-            
+            double[,] newMatrix = new double[MATRIX_ROWS, MATRIX_COLUMNS];
+
             List<double> Numbers = new List<double>();
             List<double> NumbersDesc = new List<double>();
             List<int> Rows = new List<int>();
@@ -108,7 +107,48 @@ namespace guassSeidel
             }                        
 
             //This method is to order the numbers found 'em before
-            OrderValues(Numbers, NumbersDesc);
+            OrderValues(Numbers, NumbersDesc, Rows, RowsOrder);
+            MakeNewMatrix(RowsOrder, newMatrix, matrix, MATRIX_ROWS, MATRIX_COLUMNS);
+
+            for (int i = 0; i < MATRIX_ROWS; i++)
+            {
+                Console.Write("\n");
+                for (int j = 0; j < MATRIX_COLUMNS; j++)
+                {
+                    if (j == 0)
+                    {
+                        variable = "x";
+                        sign = "";
+                    }
+                    else if (j == 1)
+                    {
+                        variable = "y";
+                        sign = "";
+                        if (newMatrix[i, j] > 0)
+                        {
+                            sign += "+";
+                        }
+
+                    }
+                    else if (j == 2)
+                    {
+                        variable = "z";
+                        sign = "";
+                        if (newMatrix[i, j] > 0)
+                        {
+                            sign += "+";
+                        }
+                    }
+                    else
+                    {
+                        variable = "";
+                        sign = "=";
+                    }
+
+                    Console.Write(sign + newMatrix[i, j] + variable);
+                }
+                Console.Write("\n");
+            }
 
 
             Console.Write("\n");
@@ -119,7 +159,7 @@ namespace guassSeidel
         }
 
         //This method is to order the numbers found 'em before
-        static double OrderValues(List<double> Numbers, List<double> NumbersDesc)
+        static double OrderValues(List<double> Numbers, List<double> NumbersDesc, List<int> Rows, List<int> RowsOrder)
         {
 
             for(int i=0; i>=0; i++)
@@ -130,7 +170,7 @@ namespace guassSeidel
                 if (Numbers.Count == 1)
                 {
                     NumbersDesc.Add(Numbers[0]);
-                    //RowsOrder.Add(Rows[0]);
+                    RowsOrder.Add(Rows[0]);
                     break;
                 }
 
@@ -143,12 +183,12 @@ namespace guassSeidel
                         band++;
                     }
 
-                    if (band == Numbers.Count-1)
+                    if (band == Numbers.Count)
                     {
                         NumbersDesc.Add(value);                        
-                        //int index = Numbers.IndexOf(value);
-                        //RowsOrder.Add(Rows[index]);
-                        //Rows.Remove(Rows[index]);
+                        int index = Numbers.IndexOf(value);
+                        RowsOrder.Add(Rows[index]);
+                        Rows.Remove(Rows[index]);
                         Numbers.Remove(value);                        
 
                         i = -1;
@@ -159,21 +199,28 @@ namespace guassSeidel
 
             for (int i = 0; i<NumbersDesc.Count; i++)
             {
-                Console.WriteLine("The order of the numbers are: " + NumbersDesc[i]);
-                //Console.WriteLine("The poision of the number is: " + RowsOrder[i]);
+                Console.WriteLine("The order of the numbers are: Row ->"+ RowsOrder[i]+" "+ NumbersDesc[i]);
             }
 
             
             return 0;
         }
 
-        static int GetRows(int RowX, int RowY, int RowZ, int j, int i)
-        {
-            
 
+        //This method will make other array but with a new order
+        static double MakeNewMatrix(List<int> RowsOrder, double[,] newMatrix, double[,] matrix, int MATRIX_ROWS, int MATRIX_COLUMNS) {
+
+            for (int i = 0; i < MATRIX_ROWS; i++)
+            {
+                for (int j = 0; j < MATRIX_COLUMNS; j++)
+                {
+                    newMatrix[i, j] = matrix[RowsOrder[i], j];
+                }
+            }
 
             return 0;
         }
+
     }
 }
 
