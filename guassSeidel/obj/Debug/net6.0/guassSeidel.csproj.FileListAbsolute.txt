@@ -1,0 +1,15 @@
+C:\Users\Efren\Documents\Proyectos\C#\guassSeidel\guassSeidel\bin\Debug\net6.0\guassSeidel.exe
+C:\Users\Efren\Documents\Proyectos\C#\guassSeidel\guassSeidel\bin\Debug\net6.0\guassSeidel.deps.json
+C:\Users\Efren\Documents\Proyectos\C#\guassSeidel\guassSeidel\bin\Debug\net6.0\guassSeidel.runtimeconfig.json
+C:\Users\Efren\Documents\Proyectos\C#\guassSeidel\guassSeidel\bin\Debug\net6.0\guassSeidel.dll
+C:\Users\Efren\Documents\Proyectos\C#\guassSeidel\guassSeidel\bin\Debug\net6.0\guassSeidel.pdb
+C:\Users\Efren\Documents\Proyectos\C#\guassSeidel\guassSeidel\obj\Debug\net6.0\guassSeidel.csproj.AssemblyReference.cache
+C:\Users\Efren\Documents\Proyectos\C#\guassSeidel\guassSeidel\obj\Debug\net6.0\guassSeidel.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Efren\Documents\Proyectos\C#\guassSeidel\guassSeidel\obj\Debug\net6.0\guassSeidel.AssemblyInfoInputs.cache
+C:\Users\Efren\Documents\Proyectos\C#\guassSeidel\guassSeidel\obj\Debug\net6.0\guassSeidel.AssemblyInfo.cs
+C:\Users\Efren\Documents\Proyectos\C#\guassSeidel\guassSeidel\obj\Debug\net6.0\guassSeidel.csproj.CoreCompileInputs.cache
+C:\Users\Efren\Documents\Proyectos\C#\guassSeidel\guassSeidel\obj\Debug\net6.0\guassSeidel.dll
+C:\Users\Efren\Documents\Proyectos\C#\guassSeidel\guassSeidel\obj\Debug\net6.0\refint\guassSeidel.dll
+C:\Users\Efren\Documents\Proyectos\C#\guassSeidel\guassSeidel\obj\Debug\net6.0\guassSeidel.pdb
+C:\Users\Efren\Documents\Proyectos\C#\guassSeidel\guassSeidel\obj\Debug\net6.0\guassSeidel.genruntimeconfig.cache
+C:\Users\Efren\Documents\Proyectos\C#\guassSeidel\guassSeidel\obj\Debug\net6.0\ref\guassSeidel.dll
