@@ -88,11 +88,13 @@ namespace guassSeidel
                 Console.Write("\n");
             }
 
+            //To Clear each variable
+            ClearVariable(newMatrix, MATRIX_ROWS, MATRIX_COLUMNS, sign, variable, NumbersDesc);
+
 
             Console.Write("\n");
             Console.WriteLine("Ingresa otro numero: ");
             int num = Convert.ToInt32(Console.ReadLine());
-
 
         }
 
@@ -216,16 +218,6 @@ namespace guassSeidel
                 }
             }
 
-            /*for (int i = 0; i< RowsOrder.Count; i++)
-            {
-                Console.WriteLine("The new order of the row numbers found are: Row ->"+ RowsOrder[i]);
-            }*/
-
-            for (int i = 0; i < NumbersDesc.Count; i++)
-            {
-                Console.WriteLine("The new order of the row numbers found are: Row ->" + NumbersDesc[i]);
-            }
-
             return 0;
         }
 
@@ -243,95 +235,100 @@ namespace guassSeidel
             return 0;
         }
 
+        //This method is to clear each variable
         static double ClearVariable(double[,] newMatrix, int MATRIX_ROWS, int MATRIX_COLUMNS, string sign, string variable, List<double> NumbersDesc) {
+
+            Console.WriteLine("Enter");
 
             string ClearVar = "";
             int j = 0;
-            int band = 0, i=0;
-            for (i = 0; i<MATRIX_ROWS; i++) {//3 -> END
-                               
-                //j -> 3
-                if (i == 0 && j==0) {sign = "X = ";}//
-                if (i == 1 && j==0) {sign = "Y = ";}//
-                if (i == 2 && j==0) {sign = "Z = ";}//"Z ="
+            int band = 0;
 
-                if (j == 0) {variable = "x";}//
+            for (int i = 0; i < MATRIX_ROWS; i++) {//1
+
+                //j -> 3
+                if (i == 0 && j == 0) { ClearVar += "X = "; }//
+                if (i == 1 && j == 0) { ClearVar += "Y = "; }//"Y = "
+                if (i == 2 && j == 0) { ClearVar += "Z = "; }//
+
+                if (j == 0) { variable = "x"; }//
                 if (j == 1) { variable = "y"; }//
                 if (j == 2) { variable = "z"; }//
                 if (j > 2) { variable = ""; }//""
 
 
-                if ((j == 1 || j == 2) && j!=i)//2  &&  2!=2
+                if ((j == 1 || j == 2) && j != i)// 2 &&  2!=1
                 {
-                                        
-                    //[2, 1] = 4
-                 
+
+                    //[1, 2] = 5
+
                     if (band > 0)
                     {
-                        //-4
-                        if ((newMatrix[i, j]*-1) > 0)
+                        //-5
+                        if ((newMatrix[i, j] * -1) > 0)
                         {
                             sign = "+";
                         }
 
-                        //Z = -3x-4y
-                        ClearVar += (sign + (newMatrix[i, j] * -1) + variable);
+                        //Y = -7x -5z
+                        ClearVar += sign + (newMatrix[i, j] * -1) + variable;
                         band++;//2
                     }
                     else
-                    {      
-                        //
-                        ClearVar += (sign + (newMatrix[i, j] * -1) + variable);
-                        band++;//
-                    }
-                    
-                }
-                else if(j!=i)//3 != 2
-                {
-                    if(band > 0)
                     {
-                        //[2, 3] = 6       
+                        //Y = -7x -5z
+                        ClearVar += sign + (newMatrix[i, j] * -1) + variable;
+                        band++;//2
+                    }
+
+                }
+                else if (j != i)//3 != 1
+                {
+                    if (band > 0)
+                    {
+                        //[1, 3] = 3    
+                        
                         if (newMatrix[i, j] > 0)
                         {
                             sign = "+";
                         }
 
-                        //Z = -3x-4y+6
-                        ClearVar += (sign + newMatrix[i, j] + variable);
+                        //Y = -7x -5z + 3
+                        ClearVar += sign + newMatrix[i, j] + variable;
                         band++;//3
                     }
                     else
                     {
 
-                        //[2, 0] = 3
-                        //Z = -3x
-                        ClearVar += (sign + (newMatrix[i, j]*-1) + variable);
-                        band++;//1
+                        //[1, 0] = 7
+                        //Y = -7x -5z
+                        ClearVar += sign + (newMatrix[i, j] * -1) + variable;
+                        band++;//2
                     }
 
-                }               
-
-                j++; //4
+                }                
 
                 if (band == 3)
                 {
-                    //Z = -3x-4y+6
-                    ClearVar += " / " + newMatrix[i, i]; //Z = -3x-4y+6 / -10
 
-                    Console.WriteLine(ClearVar); //X = -2y + 1z - 2 / 9
-                                                 //Y = -7x - 5z + 3 / 8
-                                                 //Z = -3x - 4y + 6 / -10
+                    //Y = -7x -5z + 3
+                    ClearVar += " / " + newMatrix[i, i]; //Y = -7x -5z + 3 / 8
 
+                    Console.WriteLine(ClearVar); //X = -2y + 1z -1 / 9
+                                                 //Y = -7x -5z + 3 / 8
                     j = 0;
                     sign = "";
+                    band = 0;
+                    ClearVar = "";
                     variable = "";
                     continue;
                 }
                 else
                 {
-                    if (i == 0) { i = 0; }//
-                    if (i == 1) { i = 1; }//
-                    if (i == 2) { i = 2; }//2
+                    if (i == 0) { i = -1; }//
+                    if (i == 1) { i = 0; }//0
+                    if (i == 2) { i = 1; }//
+                    j++; //4
                     sign = "";
                 }
             }   
