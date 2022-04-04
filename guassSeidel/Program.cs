@@ -48,6 +48,7 @@ namespace guassSeidel
             MakeNewMatrix(RowsOrder, newMatrix, matrix, MATRIX_ROWS, MATRIX_COLUMNS);
 
             //To display the new Matrix
+            Console.Write("\n\n----- Ordered Matrix -----");
             for (int i = 0; i < MATRIX_ROWS; i++)
             {
                 Console.Write("\n");
@@ -55,16 +56,16 @@ namespace guassSeidel
                 {
                     if (j == 0)
                     {
-                        variable = "x";
+                        variable = "x ";
                         sign = "";
                     }
                     else if (j == 1)
                     {
-                        variable = "y";
+                        variable = "y ";
                         sign = "";
                         if (newMatrix[i, j] > 0)
                         {
-                            sign += "+";
+                            sign += " + ";
                         }
 
                     }
@@ -74,13 +75,13 @@ namespace guassSeidel
                         sign = "";
                         if (newMatrix[i, j] > 0)
                         {
-                            sign += "+";
+                            sign += " + ";
                         }
                     }
                     else
                     {
                         variable = "";
-                        sign = "=";
+                        sign = " = ";
                     }
 
                     Console.Write(sign + newMatrix[i, j] + variable);
@@ -92,9 +93,12 @@ namespace guassSeidel
             ClearVariable(newMatrix, MATRIX_ROWS, MATRIX_COLUMNS, sign, variable, NumbersDesc);
 
 
-            Console.Write("\n");
-            Console.WriteLine("Ingresa otro numero: ");
-            int num = Convert.ToInt32(Console.ReadLine());
+            //To Calculate x, y, z and their errors
+            MakeCalculations(newMatrix, x, y, z, MATRIX_ROWS);
+
+
+            Console.WriteLine("\n\n----- End of the Method press to continue -----");
+            Console.ReadKey();
 
         }
 
@@ -103,6 +107,7 @@ namespace guassSeidel
         //This is to display the first matrix in console
         static double displayMatrix(double[,] matrix, int MATRIX_ROWS, int MATRIX_COLUMNS, List<double> Numbers, List<int> Rows, string variable = "", string sign= ""){
 
+            Console.Write("\n\n----- First Matrix -----");
             for (int i = 0; i < MATRIX_ROWS; i++)
             {
                 Console.Write("\n");
@@ -111,16 +116,16 @@ namespace guassSeidel
                     //"Ifs" to give format each value when displaying the matrix
                     if (j == 0)
                     {
-                        variable = "x";
+                        variable = "x ";
                         sign = "";
                     }
                     else if (j == 1)
                     {
-                        variable = "y";
+                        variable = "y ";
                         sign = "";
                         if (matrix[i, j] > 0)
                         {
-                            sign += "+";
+                            sign += " + ";
                         }
 
                     }
@@ -130,13 +135,13 @@ namespace guassSeidel
                         sign = "";
                         if (matrix[i, j] > 0)
                         {
-                            sign += "+";
+                            sign += " + ";
                         }
                     }
                     else
                     {
                         variable = "";
-                        sign = "=";
+                        sign = " = ";
                     }
 
                     //Displaying the matrix
@@ -224,6 +229,7 @@ namespace guassSeidel
         //This method will make other array but with a new order
         static double MakeNewMatrix(List<int> RowsOrder, double[,] newMatrix, double[,] matrix, int MATRIX_ROWS, int MATRIX_COLUMNS) {
 
+            
             for (int i = 0; i < MATRIX_ROWS; i++)
             {
                 for (int j = 0; j < MATRIX_COLUMNS; j++)
@@ -238,7 +244,7 @@ namespace guassSeidel
         //This method is to clear each variable
         static double ClearVariable(double[,] newMatrix, int MATRIX_ROWS, int MATRIX_COLUMNS, string sign, string variable, List<double> NumbersDesc) {
 
-            Console.WriteLine("Enter");
+            Console.WriteLine("\n\n----- Equations -----");
 
             string ClearVar = "";
             int j = 0;
@@ -251,9 +257,9 @@ namespace guassSeidel
                 if (i == 1 && j == 0) { ClearVar += "Y = "; }//"Y = "
                 if (i == 2 && j == 0) { ClearVar += "Z = "; }//
 
-                if (j == 0) { variable = "x"; }//
-                if (j == 1) { variable = "y"; }//
-                if (j == 2) { variable = "z"; }//
+                if (j == 0) { variable = "x "; }//
+                if (j == 1) { variable = "y "; }//
+                if (j == 2) { variable = "z "; }//
                 if (j > 2) { variable = ""; }//""
 
 
@@ -267,7 +273,7 @@ namespace guassSeidel
                         //-5
                         if ((newMatrix[i, j] * -1) > 0)
                         {
-                            sign = "+";
+                            sign = " + ";
                         }
 
                         //Y = -7x -5z
@@ -290,7 +296,7 @@ namespace guassSeidel
                         
                         if (newMatrix[i, j] > 0)
                         {
-                            sign = "+";
+                            sign = " + ";
                         }
 
                         //Y = -7x -5z + 3
@@ -314,7 +320,7 @@ namespace guassSeidel
                     //Y = -7x -5z + 3
                     ClearVar += " / " + newMatrix[i, i]; //Y = -7x -5z + 3 / 8
 
-                    Console.WriteLine(ClearVar); //X = -2y + 1z -1 / 9
+                    Console.WriteLine("\n"+ClearVar); //X = -2y + 1z -1 / 9
                                                  //Y = -7x -5z + 3 / 8
                     j = 0;
                     sign = "";
@@ -335,6 +341,191 @@ namespace guassSeidel
 
             return 0;
         }
+
+        //This method is to calculate the values of x, y & z and their errors
+        static void MakeCalculations(double[,] newMatrix, double x, double y, double z, int MATRIX_ROWS)
+        {
+            List<double> Xn = new List<double>();
+            List<double> Yn = new List<double>();
+            List<double> Zn = new List<double>();
+            List<double> ErXn = new List<double>();
+            List<double> ErYn = new List<double>();
+            List<double> ErZn = new List<double>();
+
+            double Res = 0;
+            int j = 0;
+            int band = 0;
+            int bandVar = 0;
+            double mult = 0;
+            int XnCount = 0;
+            int YnCount = 0;
+            int ZnCount = 0;
+
+            Xn.Add(0);
+            Yn.Add(0);
+            Zn.Add(0);
+
+
+            for (int Ni = 0; Ni >= 0; Ni++)
+            {
+  
+                for (int i = 0; i < MATRIX_ROWS; i++)//1
+                {
+
+                    //j -> 3
+                    if (i == 0 && j == 0) { bandVar = 1; }//
+                    if (i == 1 && j == 0) { bandVar = 2; }//"Y = " -> 2
+                    if (i == 2 && j == 0) { bandVar = 3; }//
+
+
+                    if (i == 0 && Ni==0)
+                    {
+                        if (j == 0) { mult = Xn[i]; }//
+                        if (j == 1) { mult = Yn[i]; }//
+                        if (j == 2) { mult = Zn[i]; }//
+                    }
+                    else
+                    {
+                        //Xn -> 0, -0.2222
+                        //Yn -> 0,
+                        //Zn -> 0,
+
+                        XnCount = Xn.Count - 1;//1
+                        YnCount = Yn.Count - 1;//0
+                        ZnCount = Zn.Count - 1;//0
+
+                        if (j == 0) { mult = Xn[XnCount]; }// 
+                        if (j == 1) { mult = Yn[YnCount]; }//
+                        if (j == 2) { mult = Zn[ZnCount]; }//
+                    }
+
+
+
+                    if ((j == 1 || j == 2) && j != i)// 2 &&  2!=1
+                    {
+
+                        //[1, 2] = 5
+
+                        if (band > 0)
+                        {
+
+                            Res += ((newMatrix[i, j] * -1) * mult);//1.555554 + (5)*(-1) * (0) -> 1.555554
+                            band++;//2
+                        }
+                        else
+                        {
+                            //[0, 1] = 
+                            Res += (newMatrix[i, j] * -1) * mult;//(2*-1)(0) -> 
+                            band++;//
+                        }
+
+                    }
+                    else if (j != i)// 0 != 1 
+                    {
+                        if (band > 0)
+                        {
+                            //[1, 3] = 3
+
+                            Res += (newMatrix[i, j]);//1.555554 + (3) -> 4.555554
+                            band++;//
+                        }
+                        else
+                        {
+
+                            //[1, 0] = 7
+                            Res += (newMatrix[i, j] * -1) * mult;//(7*-1)(-0.222222) -> 1.555554
+                            band++;//1
+                        }
+
+                    }
+
+                    if (band == 3)
+                    {
+
+                        //To store "Res" in X
+                        if (bandVar == 1) {
+
+                            Xn.Add(Math.Round((Res) / (newMatrix[i, i]), 6));// -0.222222
+                            ErXn.Add(Math.Round((Math.Abs(((Xn.Last() - (Xn[XnCount])) / (Xn.Last())) * 100)), 6));
+                        } 
+
+                        //To store "Res" in Y
+                        if (bandVar == 2) { 
+                            Yn.Add(Math.Round((Res) / (newMatrix[i, i]), 6));//0.569444
+                            ErYn.Add(Math.Round((Math.Abs(((Yn.Last() - Yn[YnCount]) / (Yn.Last())) * 100)), 6));
+                        }
+
+                        //To store "Res" in Z
+                        if (bandVar == 3) { 
+                            Zn.Add(Math.Round((Res) / (newMatrix[i, i]), 6));//-0.438869
+                            ErZn.Add(Math.Round((Math.Abs(((Zn.Last() - Zn[ZnCount]) / (Zn.Last())) * 100)), 6));
+                        }
+
+
+                        
+                        j = 0;
+                        band = 0;
+                        bandVar = 0;
+                        Res = 0;
+                        continue;                       
+                    }
+                    else
+                    {
+                        if (i == 0) { i = -1; }//
+                        if (i == 1) { i = 0; }//
+                        if (i == 2) { i = 1; }//1
+                        j++; //3
+                    }
+                }
+
+                if ((ErXn.Last() < 1) && (ErYn.Last() < 1) && (ErZn.Last() < 1))
+                {
+                    break;
+                }
+            }
+
+            //To display the values x, y, z
+            Console.WriteLine("\n\n----- Xn Values -----");
+            for (int i = 0; i < Xn.Count; i++)
+            {
+                Console.WriteLine("Xn "+i+": "+ Xn[i]);
+            }
+
+            Console.WriteLine("\n\n----- Yn Values -----");
+            for (int i = 0; i < Yn.Count; i++)
+            {
+                Console.WriteLine("Yn " + i + ": " + Yn[i]);
+            }
+
+            Console.WriteLine("\n\n ----- Zn Values -----");
+            for (int i = 0; i < Zn.Count; i++)
+            {
+                Console.WriteLine("Zn " + i + ": " + Zn[i]);
+            }
+
+            //to display the error of x, y, z
+            Console.WriteLine("\n\n ----- ErXn -----");
+            Console.WriteLine("ErXn 0: No Existe");
+            for (int i = 0; i <ErXn.Count; i++)
+            {
+                Console.WriteLine("ErXn "+ (i + 1) + ": " + ErXn[i] + "%");
+            }
+ 
+            Console.WriteLine("\n\n ----- ErYn -----");
+            Console.WriteLine("ErYn 0: No Existe");
+            for (int i = 0; i < ErYn.Count; i++)
+            {
+                Console.WriteLine("ErYn " + (i+1) + ": " + ErYn[i] + "%");
+            }
+
+            Console.WriteLine("\n\n ----- ErZn -----");
+            Console.WriteLine("ErZn 0: No Existe");
+            for (int i = 0; i < ErZn.Count; i++)
+            {
+                Console.WriteLine("ErZn " + (i + 1) + ": " + ErZn[i] + "%");
+            }
+        }
+
     }
 }
-
+ 
